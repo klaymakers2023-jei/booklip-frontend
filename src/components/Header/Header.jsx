@@ -59,7 +59,7 @@ const Header = () => {
             </Link>
           </div>
           <div>
-            <Search />
+            <Search onSearch={handleSearch} />
           </div>
           <div className={styles.btnContainer}>
             <button className={styles.btn}>Host</button>

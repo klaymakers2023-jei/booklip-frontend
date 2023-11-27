@@ -1,9 +1,7 @@
 import { useState } from 'react';
-
-import SearchIcon from '../../../public/search.svg'
+import Image from 'next/image';
 
 import styles from './Search.module.css';
-import Image from 'next/image';
 
 const Search = ({onSearch}) => {
   const [value, setValue] = useState('');
