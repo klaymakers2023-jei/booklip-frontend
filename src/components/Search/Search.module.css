@@ -1,0 +1,26 @@
+.container {
+  display: flex;
+  /* height: 36px; */
+  padding: 4px 8px;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(0,0,0,0.08);
+  border-radius: 10px;
+  width: 400px;
+}
+
+.btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.input {
+  display: flex;
+  width: 100%;
+  border: none;
+  background-color: transparent;
+}

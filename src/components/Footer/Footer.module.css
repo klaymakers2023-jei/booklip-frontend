@@ -1,0 +1,29 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: rgba(0,0,0,0.04);
+}
+
+.innerContainer {
+  display: flex;
+  margin: 20px auto;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1440px;
+  font-size: 15px;
+}
+
+.btnContainer {
+  display: flex;
+  gap: 8px;
+}
+
+.btn {
+  background-color: transparent;
+  border: none;
+  padding: 4px 16px;
+  cursor: pointer;
+}
