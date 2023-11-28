@@ -1,0 +1,106 @@
+.container {
+ display: flex;
+ flex-direction: column;
+ width: 100%;
+ gap: 24px;
+}
+
+.infoContainer {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: center;
+  gap: 12px;
+  font-size: 20px;
+  color: rgba(0,0,0,0.4);
+}
+
+.infoTitle {
+  display: flex;
+  width: 100%;
+  gap: 24px;
+  font-size: 24px;
+  color: #000;
+  align-items: center;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.bookingContainer {
+  display: flex;
+  width: 100%;
+  gap: 24px;
+  align-items: center;
+  padding: 16px;
+  border: 2px solid rgba(5, 112, 68, 0.4);
+  border-radius: 10px;
+}
+
+.img {
+  width: 200px;
+  height: 200px;
+  background-color: #057044;
+  border-radius: 10px;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.cancle {
+  background-color: rgba(0,0,0,0.4);
+}
+
+.bookingContents {
+  display: flex;
+  width: calc(100% - 240px);
+  justify-content: space-between;
+}
+
+.bookingInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  font-size: 24px;
+  color: rgba(0,0,0,0.4);
+}
+
+.bookingName {
+  color: #000;
+}
+
+.otherInfo {
+  display: flex;
+  position: relative;
+  gap: 40px;
+  font-size: 32px;
+  font-weight: bold;
+  justify-content: flex-start;
+}
+
+.btn {
+  width: fit-content;
+  height: fit-content;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.remove {
+  position: absolute;
+  display: flex;
+  padding: 10px 16px;
+  z-index: 1;
+  right: 0;
+  top: 42px;
+  background: transparent;
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.3);
+  font-size: 12px;
+  color: rgba(0,0,0,0.4);
+  cursor: pointer;
+}
