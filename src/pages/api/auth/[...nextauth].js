@@ -1,4 +1,4 @@
-import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from "@/constants"
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, NEXTAUTH_URL } from "@/constants"
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 
@@ -22,7 +22,8 @@ export const authOptions = {
       session.accessToken = token.accessToken
       return session
     }
-  }
+  },
+  secret: NEXTAUTH_URL,
 }
 
 export default NextAuth(authOptions)
