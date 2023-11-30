@@ -3,6 +3,7 @@ import 'swiper/css';
 import 'swiper/css/effect-flip';
 import { EffectFlip } from 'swiper/modules';
 import Image from 'next/image';
+import cx from 'classnames';
 
 import styles from './NFTModal.module.css';
 
@@ -29,12 +30,18 @@ const NFTModal = ({ booking, onClose }) => {
           <SwiperSlide>
             <div
               className={styles.img}
-              style={{backgroundImage: `url(${booking.image.src})`}}
+              style={{backgroundImage: `url(${booking.image})`}}
             />
           </SwiperSlide>
           <SwiperSlide>
-            <div className={styles.infoContainer}>
-              
+            <div
+              className={styles.img}
+              style={{backgroundImage: `url(${booking.image})`}}
+            >
+              <div className={styles.infoContainer}>
+                <p className={styles.name}>{booking.name}</p>
+                <p>{booking.period}</p>
+              </div>
             </div>
           </SwiperSlide>
         </Swiper>

@@ -12,15 +12,14 @@ export default function BookingPage() {
   const { userId } = useStore((store) => store.user);
   const { getBookings } = actions();
   useEffect(() => {
-    if (userId) {
-      getBooking();
-    }
+    getBooking(userId);
   }, [userId]);
 
-  const getBooking = useCallback(async () => {
+  const getBooking = useCallback(async (userId) => {
     if (!userId) {
       return;
     }
+    console.log(userId)
     await getBookings(userId);
   });
 

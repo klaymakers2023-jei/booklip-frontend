@@ -3,11 +3,13 @@ import useStore from '@/store';
 import styles from '@/styles/Details.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export default function Details() {
   const { selectedRoom } = useStore((store) => store.room);
   const { guests, checkIn, checkOut } = useStore((store) => store.common);
+  const { reserve } = useStore((store) => store.booking.actions());
+  const { userId, wallet_account } = useStore((store) => store.user);
   const [total, setTotal] = useState(0);
   const [nights, setNights] = useState(0);
 
@@ -19,12 +21,26 @@ export default function Details() {
   };
 
   useEffect(() => {
-    setNights((checkOut - checkIn) / 86400000);
-  }, []);
-  
+    if (checkIn && checkOut) {
+      setNights((checkOut - checkIn) / 86400000);
+    }
+  }, [checkIn, checkOut]);
+
   useEffect(() => {
-    setTotal(nights * selectedRoom.price);
-  }, [nights]);
+    if (selectedRoom) {
+      if (nights * selectedRoom.price >= 1) {
+        setTotal(nights * selectedRoom.price);
+      }
+    }
+  }, [nights, selectedRoom]);
+
+  const reserveRoom = useCallback(async (room, user, start, duration ) => {
+    await reserve(room,user,start,duration);
+  }, []);
+
+  const handleReserve = () => {
+    reserveRoom(selectedRoom, { userId: userId, userWallet: wallet_account }, checkIn, nights);
+  }
 
   return (
     <div className={styles.container}>
@@ -92,7 +108,7 @@ export default function Details() {
                     <p>Adult: {guests.adult}, Child: {guests.child}</p>
                   </div>
                 </div>
-                <button className={styles.reserveBtn}>Reserve</button>
+                <button className={styles.reserveBtn} onClick={handleReserve}>Reserve</button>
                 <div className={styles.receipt}>
                   <p>${selectedRoom.price} x {nights} nignt(s)</p>
                   <p>${total}</p>

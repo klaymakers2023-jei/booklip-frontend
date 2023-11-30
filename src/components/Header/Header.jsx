@@ -17,7 +17,6 @@ const Header = () => {
   const [searchValue, setSearchValue] = useState('');
   const [isModal, setIsModal] = useState(false);
   const [isLoginModal, setIsLoginModal] = useState(false);
-  const [email, setEmail] = useState();
 
   const { data } = useSession();
   const { actions, userId } = useStore((store) => store.user);
@@ -25,17 +24,16 @@ const Header = () => {
 
   useEffect(() => {
     if (data) {
-      setEmail(data.user?.email);
-      loginUser();
+      loginUser(data.user?.email);
     }
   }, [data]);
 
-  const loginUser = useCallback(async () => {
+  const loginUser = useCallback(async (email) => {
     if (!email) {
       return;
     }
     await login(email);
-  });
+  }, []);
 
   const handleSearch = (v) => {
     setSearchValue(v);
