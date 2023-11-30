@@ -1,23 +1,43 @@
-import { useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import cx from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useSession, signIn, signOut } from "next-auth/react";
+
+import useStore from '@/store';
 
 import Search from '../Search';
 import Logo from '../../../public/Booklip_Logo.png';
 import ProfileDropDown from '../ProfileDropDown';
+import LoginModal from '../LoginModal';
 
 import styles from './Header.module.css';
-import LoginModal from '../LoginModal';
 
 const Header = () => {
   const [searchValue, setSearchValue] = useState('');
-  const [isLogin, setIsLogin] = useState(false);
   const [isModal, setIsModal] = useState(false);
   const [isLoginModal, setIsLoginModal] = useState(false);
+  const [email, setEmail] = useState();
+
+  const { data } = useSession();
+  const { actions, userId } = useStore((store) => store.user);
+  const { login } = actions();
+
+  useEffect(() => {
+    if (data) {
+      setEmail(data.user?.email);
+      loginUser();
+    }
+  }, [data]);
+
+  const loginUser = useCallback(async () => {
+    if (!email) {
+      return;
+    }
+    await login(email);
+  });
 
   const handleSearch = (v) => {
-    console.log(v);
     setSearchValue(v);
   }
 
@@ -30,12 +50,11 @@ const Header = () => {
   }
 
   const handleLogin = () => {
-    setIsLoginModal(!isLoginModal);
-    setIsLogin(!isLogin);
+    signIn();
   }
 
   const handleSignOut = () => {
-    setIsLogin(!isLogin);
+    signOut();
   }
 
   return (
@@ -64,7 +83,7 @@ const Header = () => {
           <div className={styles.btnContainer}>
             <button className={styles.btn}>Host</button>
             {
-              isLogin ? (
+              userId ? (
                 <Image
                   src={'/profile.svg'}
                   style={{ cursor: 'pointer' }}
@@ -74,11 +93,11 @@ const Header = () => {
                 />
               ) : (
                 <button
-                    className={cx(styles.btn, styles.login)}
-                    onClick={handleLoginModal}
-                  >
-                    Login
-                  </button>
+                  className={cx(styles.btn, styles.login)}
+                  onClick={handleLoginModal}
+                >
+                  Login
+                </button>
               )
             }
           </div>

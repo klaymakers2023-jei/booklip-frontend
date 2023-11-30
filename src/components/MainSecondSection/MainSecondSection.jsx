@@ -3,126 +3,28 @@ import cx from 'classnames';
 
 import StayCard from '../StayCard';
 import BecomeHost from '../../../public/becomeHost.png';
-import Lagos from '../../../public/lagos.png';
+
 import DestinationCard from '../DestinationCard';
 
 import styles from './MainSecondSection.module.css';
 
 import 'swiper/css';
-
-const dummy_data = [
-  {
-    type: 'new',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'popular',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'new',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'new',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'popular',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'new',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'new',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'popular',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'new',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'new',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'popular',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'new',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'new',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'popular',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-  {
-    type: 'new',
-    name: 'Name of the Hotel',
-    location: 'City Name, City Name, Country',
-    price: 160,
-  },
-]
-
-const cities = [
-  {
-    name: 'Lagos',
-    image: Lagos
-  },
-  {
-    name: 'Lagos',
-    image: Lagos
-  },
-  {
-    name: 'Lagos',
-    image: Lagos
-  },
-  {
-    name: 'Lagos',
-    image: Lagos
-  },
-]
+import useStore from '@/store';
+import { useCallback, useEffect } from 'react';
 
 const MainSecondSection = () => {
+  const { accommodations } = useStore((store) => store.accmmodation);
+  const { rooms, actions } = useStore((store) => store.room);
+  const { getLists } = actions();
+  
+  useEffect(() => {
+    getRooms();  
+  }, []);
+
+  const getRooms = useCallback(async () => {
+    await getLists();
+  });
+
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
@@ -134,11 +36,9 @@ const MainSecondSection = () => {
           <Swiper
             spaceBetween={10}
             slidesPerView={4}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
           >
             {
-              dummy_data.map((item, idx) => (
+              rooms.slice(0,8).map((item, idx) => (
                 <SwiperSlide key={idx}>
                   <StayCard room={item} />
                 </SwiperSlide>
@@ -154,15 +54,15 @@ const MainSecondSection = () => {
           <Swiper
             spaceBetween={40}
             slidesPerView={4}
-            onSlideChange={() => console.log('slide change')}
-            onSwiper={(swiper) => console.log(swiper)}
           >
             {
-              cities.map((item, idx) => (
-                <SwiperSlide key={idx}>
-                  <DestinationCard city={item} />
-                </SwiperSlide>
-              ))
+              accommodations.length > 0 && (
+                accommodations.map((item, idx) => (
+                  <SwiperSlide key={idx}>
+                    <DestinationCard city={item} />
+                  </SwiperSlide>
+                ))
+              )
             }
           </Swiper>
         </div>
@@ -176,7 +76,7 @@ const MainSecondSection = () => {
             <div className={styles.becomeContents}>
               <p className={styles.becomeTitle}>Become a host</p>
               <p>Join thousands of Landlords <br /> and earn an extra income.</p>
-              <button className={styles.btn}>Learn More</button>
+              {/* <button className={styles.btn}>Learn More</button> */}
             </div>
           </div>
         </div>

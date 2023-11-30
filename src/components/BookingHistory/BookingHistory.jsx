@@ -3,14 +3,29 @@ import Image from 'next/image';
 import cx from 'classnames';
 
 import styles from './BookingHistory.module.css';
+import NFTModal from '../NFTModal';
 
 const BookingHistory = ({ booking }) => {
   const [isRemove, setIsRemove] = useState(false);
+  const [isModal, setIsModal] = useState(false);
+  const [bookingInfo, setBookingInfo] = useState();
 
   const handlerRemove = () => {
     setIsRemove(!isRemove);
   }
+
+  const handlerModal = (info) => {
+    if (info) {
+      setBookingInfo(info);
+    }
+    else {
+      setBookingInfo();
+    }
+    setIsModal(!isModal);
+  }
+
   return (
+    <>
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <div className={styles.infoTitle}>
@@ -26,8 +41,12 @@ const BookingHistory = ({ booking }) => {
       <div className={styles.contents}>
         {
           booking.bookings.map((item, idx) => (
-            <div className={styles.bookingContainer} key={idx}>
-              <div className={cx(styles.img, item.isCancle && styles.cancle)} style={item.image && {backgroundImage: `url(${item.image})`}}/>
+            <div className={cx(styles.bookingContainer, item.status && styles.click)} key={idx} onClick={() => {
+              if (item.status) {
+                handlerModal(item);
+              }
+            }}>
+              <div className={cx(styles.img, item.isCancle && styles.cancle)} style={item.image && {backgroundImage: `url(${item.image.src})`}}/>
               <div className={styles.bookingContents}>
                 <div className={styles.bookingInfo}>
                   <p className={styles.bookingName}>{item.name}</p>
@@ -64,7 +83,13 @@ const BookingHistory = ({ booking }) => {
           ))
         }
       </div>
-    </div>
+      </div>
+      {
+        isModal && (
+          <NFTModal booking={bookingInfo} onClose={handlerModal} />
+        )
+      }
+      </>
   )
 }
 

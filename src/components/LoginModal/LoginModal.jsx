@@ -1,8 +1,7 @@
-
 import Image from 'next/image';
 import styles from './LoginModal.module.css';
 
-const LoginModal = ({onClose, onPress}) => {
+const LoginModal = ({ onClose, onPress }) => {
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>

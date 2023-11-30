@@ -1,11 +1,18 @@
-
+import { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
-import MainBackGround from '../../../public/main.png';
 
-import styles from './MainSection.module.css';
+import MainBackGround from '../../../public/main.png';
 import SearchCard from '../SearchCard';
 
+import styles from './MainSection.module.css';
+
 const MainSection = () => {
+  const [destination, setDestination] = useState();
+
+  const handleDestination = (des) => {
+    setDestination(des);
+  }
   return (
     <div
       className={styles.container}
@@ -24,19 +31,25 @@ const MainSection = () => {
         </div>
         <div className={styles.searchContainer}>
           <div className={styles.searchInnerContainer}>
-            <SearchCard type={'destination'} />
+            <SearchCard type={'destination'} onChangeDestination={handleDestination} />
             <SearchCard type={'checkin'} />
             <SearchCard type={'checkout'} />
             <SearchCard type={'guests'} />
           </div>
-          <button className={styles.btn}>
+          <Link
+            className={styles.btn}
+            href={{
+              pathname: '/stays',
+              query: { site: destination },
+            }}
+          >
             <Image
               src={'/white_search.svg'}
               width={34}
               height={34}
             />
             <p>search</p>
-          </button>
+          </Link>
         </div>
       </div>
     </div>

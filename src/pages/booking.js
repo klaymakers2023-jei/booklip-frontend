@@ -1,68 +1,37 @@
+import { useEffect, useCallback } from 'react';
 import cx from 'classnames';
 
 import styles from '@/styles/Booking.module.css';
 import Image from 'next/image';
 import BookingHistory from '@/components/BookingHistory';
-
-const dummy_data = [
-  {
-    period: '18 Nov 2023 - 20 Nov 2023',
-    bookings: [
-      {
-        image: undefined,
-        price: 100,
-        name: 'Room Name, Hotel Name',
-        period: '19 Nov 2023 - 20 Nov 2023',
-        status: false,
-        isCancle: false,
-      }
-    ]
-  },
-  {
-    period: '18 Nov 2023 - 20 Nov 2023',
-    bookings: [
-      {
-        image: undefined,
-        price: 100,
-        name: 'Room Name, Hotel Name',
-        period: '19 Nov 2023 - 20 Nov 2023',
-        status: true,
-        isCancle: false,
-      },
-      {
-        image: undefined,
-        price: 100,
-        name: 'Room Name, Hotel Name',
-        period: '19 Nov 2023 - 20 Nov 2023',
-        status: true,
-        isCancle: false,
-      },
-    ]
-  },
-  {
-    period: '18 Nov 2023 - 20 Nov 2023',
-    bookings: [
-      {
-        image: undefined,
-        price: 100,
-        name: 'Room Name, Hotel Name',
-        period: '19 Nov 2023 - 20 Nov 2023',
-        status: false,
-        isCancle: true,
-      },
-    ]
-  },
-]
+import Seoul from '../../public/seoul.png';
+import useStore from '@/store';
 
 export default function BookingPage() {
+  const { actions, bookings } = useStore((store) => store.booking);
+  const { userId } = useStore((store) => store.user);
+  const { getBookings } = actions();
+  useEffect(() => {
+    if (userId) {
+      getBooking();
+    }
+  }, [userId]);
+
+  const getBooking = useCallback(async () => {
+    if (!userId) {
+      return;
+    }
+    await getBookings(userId);
+  });
+
   return (
     <div className={styles.container}>
       <div className={styles.innerContainer}>
         <h1 className={styles.title}>Bookings & Trips</h1>
-        <div className={cx(styles.contents, dummy_data.length===0 && styles.empty)}>
+        <div className={cx(styles.contents, bookings.length===0 && styles.empty)}>
           {
-            dummy_data.length > 0 ? (
-              dummy_data.map((item, idx) => (
+            bookings.length > 0 ? (
+              bookings.map((item, idx) => (
                 <BookingHistory key={idx} booking={item} />
               ))
             ) : (

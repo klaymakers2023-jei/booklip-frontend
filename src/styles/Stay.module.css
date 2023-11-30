@@ -13,13 +13,12 @@
   align-items: center;
   padding: 24px auto;
   max-width: 1440px;
-  margin-top: 183px;
 }
 
 .contents {
   display: flex;
   flex-wrap: wrap;
-
+  width: 100%;
 }
 
 .card {

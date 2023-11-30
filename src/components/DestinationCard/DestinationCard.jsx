@@ -1,18 +1,23 @@
+import Link from 'next/link';
 
 import styles from './DestinationCard.module.css';
 
-const DestinationCard = ({city}) => {
+const DestinationCard = ({ city }) => {
   return (
-    <div
+    <Link
       className={styles.container}
       style={{
         backgroundImage: `url(${city.image.src})`
       }}
+      href={{
+        pathname: '/stays',
+        query: { site: city.location },
+      }}
     >
       <div className={styles.innerContainer}>
-        <p>{city.name}</p>
+        <p>{city.location}</p>
       </div>
-    </div>
+    </Link>
   )
 }
 

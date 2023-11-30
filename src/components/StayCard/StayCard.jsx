@@ -1,26 +1,35 @@
 import cx from 'classnames';
-
-import Room from '../../../public/room.png';
+import Image from 'next/image';
+import Link from 'next/link';
 
 import styles from './StayCard.module.css';
-import Image from 'next/image';
+import useStore from '@/store';
 
 const StayCard = ({ room }) => {
+  const { setRoom } = useStore((store) => store.room.actions());
   return (
-    <div className={styles.container}>
+    <Link
+      className={styles.container}
+      href={'/details'}
+      onClick={() => setRoom(room)}
+    >
       <div className={styles.imgContainer}
         style={{
-          backgroundImage: `url(${Room.src})`,
+          backgroundImage: `url(${room.images[0].src})`,
         }}
       >
-        <div className={cx(styles.tag, room.type === 'new' && styles.newTag)}>
-          <Image
-            src={room.type === 'new' ? '/star.svg' : '/fire.svg'}
-            width={20}
-            height={20}
-          />
-          <p>{room.type}</p>
-        </div>
+        {
+          room.type && (
+            <div className={cx(styles.tag, room.type === 'new' && styles.newTag)}>
+              <Image
+                src={room.type === 'new' ? '/star.svg' : '/fire.svg'}
+                width={20}
+                height={20}
+              />
+              <p>{room.type}</p>
+            </div>
+          )
+        }
       </div>
       <div className={styles.contents}>
         <p className={styles.name}>{room.name}</p>
@@ -30,7 +39,7 @@ const StayCard = ({ room }) => {
           <p> / night</p>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 

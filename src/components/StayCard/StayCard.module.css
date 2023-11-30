@@ -6,6 +6,7 @@
   margin: 10px 0;
   gap: 10px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .container:hover {
