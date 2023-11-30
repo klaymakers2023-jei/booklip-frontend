@@ -4,7 +4,6 @@ import cx from 'classnames';
 import styles from '@/styles/Booking.module.css';
 import Image from 'next/image';
 import BookingHistory from '@/components/BookingHistory';
-import Seoul from '../../public/seoul.png';
 import useStore from '@/store';
 
 export default function BookingPage() {
