@@ -1,0 +1,79 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 220px;
+  gap: 18px;
+  position: relative;
+}
+
+.tag {
+  display: flex;
+  gap: 12px;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+.dropDown {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  background-color: #FFFFFF;
+  box-shadow: 0 4px 16px 0 rgba(0, 0, 0, 0.2);
+  /* width: 20px; */
+  /* height: 20px; */
+  padding: 20px;
+  position: absolute;
+  top: 74px;
+  gap: 8px;
+  border-radius: 10px;
+}
+
+.divider {
+  display: flex;
+  width: 100%;
+  border-bottom: 1px solid #EBEDF4;
+}
+
+.btn {
+  display: flex;
+  padding: 8px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.contents {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+
+.title {
+  font-size: 24px;
+}
+
+.description {
+  font-size: 19px;
+  color: rgba(0,0,0,0.3);
+}
+
+.selectContents {
+  display: flex;
+  align-items: center;
+  gap: 86px;
+}
+
+.selectBtnContents {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.datePicker {
+  font-size: 24px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
