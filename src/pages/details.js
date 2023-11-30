@@ -4,6 +4,7 @@ import styles from '@/styles/Details.module.css';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Details() {
   const { selectedRoom } = useStore((store) => store.room);
@@ -12,6 +13,7 @@ export default function Details() {
   const { userId, wallet_account } = useStore((store) => store.user);
   const [total, setTotal] = useState(0);
   const [nights, setNights] = useState(0);
+  const router = useRouter();
 
   const options = {
     weekday: 'long',
@@ -35,7 +37,8 @@ export default function Details() {
   }, [nights, selectedRoom]);
 
   const reserveRoom = useCallback(async (room, user, start, duration ) => {
-    await reserve(room,user,start,duration);
+    await reserve(room, user, start, duration);
+    router.push('/booking');
   }, []);
 
   const handleReserve = () => {
