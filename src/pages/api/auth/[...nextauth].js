@@ -1,11 +1,12 @@
+import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET } from "@/constants"
 import NextAuth from "next-auth"
 import GoogleProvider from "next-auth/providers/google"
 
 export const authOptions = {
   providers: [
     GoogleProvider({
-      clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_CLIENT_SECRET
+      clientId: GOOGLE_CLIENT_ID,
+      clientSecret: GOOGLE_CLIENT_SECRET
     }),
   ],
   callbacks: {
